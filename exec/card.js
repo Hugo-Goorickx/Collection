@@ -90,11 +90,7 @@ class Card
         let new_content = document.createTextNode("Exit");
         out_button.classList.add('exit');
         out_button.appendChild(new_content);
-        out_button.addEventListener("click", function()
-        {
-            let tmp = document.getElementsByClassName("cover")[0];
-            tmp.remove();
-        });
+        out_button.addEventListener("click", function() { document.getElementsByClassName("cover")[0].remove(); });
         
         //merge each elemt
         cover.appendChild(out_button);
@@ -160,13 +156,10 @@ while (size_all >= 320 && nb_card < 5)
 }
 size_all = screen.width;
 for (let i = 0; i < nb_card; i++)
-{
     size_all -= 280;
-}
 let space = size_all / (nb_card + 1);
 
 //Setup function using in html
-document.body.onload = function() {onLoadHandler ()};
 document.getElementById("b1").onclick = function() {up ()};
 document.getElementById("b2").onclick = function() {down ()};
 
