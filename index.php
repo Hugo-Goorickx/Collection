@@ -13,10 +13,10 @@
 		</title>
 	</head>
 	<body>
-		<button id="b2" class="button"><img src="./imgs/arrow.png" class="reverse" alt="moving button"></button>
-		<button id="b1" class="button"><img src="./imgs/arrow.png" class="normal" alt="moving button"></button>
+		<button id="b2" onclick="down()" class="button"><img src="./imgs/arrow.png" class="reverse" alt="moving button"></button>
+		<button id="b1" onclick="up()" class="button"><img src="./imgs/arrow.png" class="normal" alt="moving button"></button>
 		<main class="parent">
 		</main>
-		<script src="./exec/card.js" type="module"></script>
+		<script src="exec/card.js" type="module"></script>
 	</body>
 </html>

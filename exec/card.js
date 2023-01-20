@@ -106,36 +106,47 @@ class Card
 //affiche les 3 cardes en focntion de la page ou on se situe
 function onLoadHandler()
 {
-    document.querySelectorAll('.container').forEach(elem => elem.remove());
+
+    let tmp = document.querySelectorAll('.container');
+
+    for(let i = 0; i < tmp.length;i++)
+        tmp[i].remove();
     
     for (let i = 0; i < nb_card;i++)
     {
-        global_index =  (global_index >= all_img.length) ? global_index + 1: 0;
-        all_img[global_index].gen_card();
+        if (++global_index >= all_img.length)
+            global_index = 0;
+        if (all_img[global_index])
+            all_img[global_index].gen_card();
     }
     
     tmp = document.querySelectorAll('.container');
     for(let i = 0; i < nb_card;i++)
     {
-        tmp[i].classList.add("div" + (i + 1));
-        tmp[i].style.left = ((280 * i) + (space * (i + 1))) + "px";
+        if (tmp[i])
+        {
+            tmp[i].classList.add("div" + (i + 1));
+            tmp[i].style.left = ((280 * i) + (space * (i + 1))) + "px";
+        }
     }
 }
 
 //recule
-document.getElementById('b2').addEventListener("click", function(){
+function down()
+{
     global_index -= nb_card * 2;
     if (global_index < 0)
         global_index += all_img.length;
     onLoadHandler();
-});
+}
 
 //avance
-document.getElementById('b1').addEventListener("click", function(){
+function up()
+{
     if (global_index > all_img.length)
         global_index = 0;
     onLoadHandler();
-});
+}
 
 
 //variables globales
@@ -149,8 +160,16 @@ while (size_all >= 320 && nb_card < 5)
 }
 size_all = screen.width;
 for (let i = 0; i < nb_card; i++)
+{
     size_all -= 280;
+}
 let space = size_all / (nb_card + 1);
+
+//Setup function using in html
+document.body.onload = function() {onLoadHandler ()};
+document.getElementById("b1").onclick = function() {up ()};
+document.getElementById("b2").onclick = function() {down ()};
+
 
 let all_img = [];
 
@@ -162,7 +181,7 @@ fetchName()
 		for (let elem of json.collection)
             all_img.push(new Card(elem.Title, elem.Plot, elem.Real, elem.Cast, elem.Date, elem.Metascore, elem.Boxoffice, elem.img, elem.video));
         onLoadHandler();
-    })
+	})
 	.catch((error) => {
 		console.log("There was an error!", error);
 	});
