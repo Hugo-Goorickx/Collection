@@ -126,7 +126,7 @@ body {
   height: 100%;
   width: 100%;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400vw 400vw;
+  background-size: 400vw 400vh;
   -webkit-animation: gradient 15s ease infinite;
           animation: gradient 15s ease infinite;
 }
