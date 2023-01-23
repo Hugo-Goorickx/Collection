@@ -18,6 +18,7 @@ class Card
     {
         let new_span = document.createElement('div');
         let new_content = document.createTextNode(content);
+
         new_span.classList.add(className);
         new_span.appendChild(new_content);
         return new_span
@@ -29,7 +30,7 @@ class Card
         let tmp = document.createElement('div');
         tmp.classList.add(className);
         if (content)
-        content.appendChild(tmp);
+            content.appendChild(tmp);
         return tmp;
     }
     
@@ -51,62 +52,48 @@ class Card
         tmp.appendChild(new_span);
 
         //add all datas
-        tmp.appendChild(this.addElement("plot", this.plot));
-        tmp.appendChild(this.addElement("director", "Director : " + this.director));
-        tmp.appendChild(this.addElement("actors", "Actros : " + this.actors));
-        tmp.appendChild(this.addElement("released", "Date de sortie : " + this.released));
+        tmp.append(this.addElement("plot", this.plot) ,this.addElement("director", "Director : " + this.director) ,this.addElement("actors", "Actros : " + this.actors) ,this.addElement("released", "Date de sortie : " + this.released));
         
         let tmp2 = this.global_div(tmp, 'end');
-        tmp2.appendChild(this.addElement("metascore", "Metascore : " + this.metascore));
-        tmp2.appendChild(this.addElement("boxoffice", "Box Office : " + this.boxoffice));
+        tmp2.append(this.addElement("metascore", "Metascore : " + this.metascore), (this.addElement("boxoffice", "Box Office : " + this.boxoffice)));
         
         //setup the picture
-        let test =this.global_div(content, 'flap');
+        let test = this.global_div(content, 'flap');
         test.style.setProperty('--img', "url("+this.img+")");
     }
 
     //show the trailler
     show()
     {
-        //define where we add the vid
-        let start = document.getElementsByTagName("main")[0];
-
-        //create a div to show a background 
-        let cover = document.createElement('div');
-        cover.classList.add('cover');
-       
-        //create the vide with the good attributes
-        let new_span = document.createElement('iframe');
-        new_span.setAttribute("width" , screen.width);
-        new_span.setAttribute("height" , screen.width * 0.75);
-        new_span.setAttribute("title" , this.title);
-        new_span.setAttribute("frameborder" , "0");
-        new_span.setAttribute("allowfullscreen" , "");
-        new_span.setAttribute("allow" , "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
-        new_span.setAttribute("src" , this.vid);
-        
-        //create the button to exit the video
-        let out_button = document.createElement('button');
+        let start       = document.getElementsByTagName("main")[0];
+        let cover       = document.createElement('div');
+        let new_span    = document.createElement('iframe');
         let new_content = document.createTextNode("Exit");
+        let out_button  = document.createElement('button');
+
+        setAtt(new_span, {"width" : window.innerWidth, "height" : window.innerHeight, "title" : this.title, "frameborder" : "0", "allowfullscreen" : "", "allow" : "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", "src" : this.vid});
+        
         out_button.classList.add('exit');
         out_button.appendChild(new_content);
         out_button.addEventListener("click", function() { document.getElementsByClassName("cover")[0].remove(); });
         
-        //merge each elemt
-        cover.appendChild(out_button);
-        cover.appendChild(new_span);
+        cover.classList.add('cover');
+        cover.append(out_button, new_span);
         start.appendChild(cover);
     }
+}
+
+function setAtt(className, all_datas)
+{
+    for (let elem in all_datas)
+        className.setAttribute(elem , all_datas[elem]);
 }
 
 //affiche les 3 cardes en focntion de la page ou on se situe
 function onLoadHandler()
 {
 
-    let tmp = document.querySelectorAll('.container');
-
-    for(let i = 0; i < tmp.length;i++)
-        tmp[i].remove();
+    document.querySelectorAll('.container').forEach(elem => {elem.remove();});
     
     for (let i = 0; i < nb_card;i++)
     {
@@ -116,18 +103,12 @@ function onLoadHandler()
             all_img[global_index].gen_card();
     }
     
-    tmp = document.querySelectorAll('.container');
+    let tmp = document.querySelectorAll('.container');
     for(let i = 0; i < nb_card;i++)
-    {
         if (tmp[i])
-        {
-            tmp[i].classList.add("div" + (i + 1));
             tmp[i].style.left = ((280 * i) + (space * (i + 1))) + "px";
-        }
-    }
 }
 
-//recule
 function down()
 {
     global_index -= nb_card * 2;
@@ -136,7 +117,6 @@ function down()
     onLoadHandler();
 }
 
-//avance
 function up()
 {
     if (global_index > all_img.length)
@@ -144,35 +124,32 @@ function up()
     onLoadHandler();
 }
 
+let global_index = 0,
+    size_all = window.innerWidth,
+    nb_card = 0,
+    space,
+    all_img = [];
 
-//variables globales
-let global_index = 0;
-let size_all = screen.width;
-let nb_card = 0;
 while (size_all >= 320 && nb_card < 5)
 {
     size_all -= 320;
     nb_card++;
 }
-size_all = screen.width;
+size_all = window.innerWidth;
 for (let i = 0; i < nb_card; i++)
     size_all -= 280;
-let space = size_all / (nb_card + 1);
+space = size_all / (nb_card + 1);
 
 //Setup function using in html
 document.getElementById("b1").onclick = function() {up ()};
 document.getElementById("b2").onclick = function() {down ()};
 
-
-let all_img = [];
-
-const fetchName = () => fetch('../test.json');
+const fetchName = () => fetch('./test.json');
 
 fetchName()
 	.then((response) => response.json())
 	.then((json) => {
-		for (let elem of json.collection)
-            all_img.push(new Card(elem.Title, elem.Plot, elem.Real, elem.Cast, elem.Date, elem.Metascore, elem.Boxoffice, elem.img, elem.video));
+        json.collection.forEach(elem => { all_img.push(new Card(elem.Title, elem.Plot, elem.Real, elem.Cast, elem.Date, elem.Metascore, elem.Boxoffice, elem.img, elem.video));});
         onLoadHandler();
 	})
 	.catch((error) => {

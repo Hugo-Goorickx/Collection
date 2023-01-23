@@ -1,0 +1,35 @@
+@import '../abstracts/variables';
+
+body {
+    font-family: 'Roboto', sans-serif;
+	height:100%;
+	width: 100%;
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400vw 400vw;
+    animation: gradient 15s ease infinite;
+	.button {
+		background-color:transparent;
+		border: none;
+		cursor:pointer;
+		height: calc($img_height / 10);
+		width: calc($img_height / 10);
+		text-decoration:none;
+		&:active {
+			transform: translateY(-1);
+			top:1px;
+		}
+		img {
+			height: calc($img_height / 20);
+			width: calc($img_height / 20);
+		}
+		.normal, .reverse {
+			position: absolute;
+			top: 48%;
+			left: 1%;
+		}
+		.reverse {
+			left: 98%;
+			transform: scaleX(-1);
+		}
+	}
+}

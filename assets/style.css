@@ -1,139 +1,72 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html, body, div, span, object, iframe, figure, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, code, em, img, small, strike, strong, sub, sup, tt, b, u, i, ol, ul, li, fieldset, form, label, table, caption, tbody, tfoot, thead, tr, th, td, main, canvas, embed, footer, header, nav, section, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: none;
+     -moz-text-size-adjust: none;
+          text-size-adjust: none;
+}
+
+footer, header, nav, section, main {
+  display: block;
+}
+
 body {
-  font-family: "Roboto", sans-serif;
-  background: linear-gradient(to right bottom, #A9C9FF 0%, #FFBBEC 100%);
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400vw 400vw;
-  animation: gradient 15s ease infinite;
+  line-height: 1;
 }
 
-.div1, .div2, .div3, .div4, .div5 {
-  left: 0;
-  position: absolute;
-  top: 25%;
-  width: 280px;
-  height: 400px;
+ol, ul {
+  list-style: none;
 }
 
-.container {
-  background: #f2f2f2;
-  overflow: hidden;
-  border-radius: 20px;
-  cursor: pointer;
-  box-shadow: 0 0 20px 8px #000000;
-}
-.container:hover {
-  transform: translateY(-1);
-}
-.container:hover .flap::before {
-  transform: translatex(-140px);
-}
-.container:hover .flap::after {
-  transform: translatex(140px);
+blockquote, q {
+  quotes: none;
 }
 
-.content {
-  position: absolute;
-  top: 10%;
-  text-align: justify;
-  color: black;
-  padding-left: 40px;
-  padding-right: 10px;
-  height: 400px;
-  font-size: 20px;
-}
-
-.title {
-  font-size: 22px;
-  color: rgb(141, 141, 247);
-  border: none;
-}
-
-.exit {
-  border: none;
-  background-color: Transparent;
-  color: white;
-}
-
-.plot {
-  height: 140px;
-  font-size: 15px;
-  margin-bottom: 30px;
-}
-
-.director, .actors {
-  font-size: 13px;
-}
-
-.released {
-  font-size: 10px;
-  margin-top: 20px;
-}
-
-.end {
-  font-size: 10px;
-  margin-top: 10px;
-}
-
-.flap {
-  width: 100%;
-  height: 100%;
-}
-.flap::before, .flap::after {
-  position: absolute;
+blockquote:before, blockquote:after, q:before, q:after {
   content: "";
-  height: 100%;
-  width: 50%;
-  background: var(--img) white;
-  background-size: 280px 400px;
-  background-repeat: no-repeat;
-  transition: 1s;
-}
-.flap::before {
-  background-position: 0vw;
-}
-.flap::after {
-  right: 0;
-  background-position: -140px;
+  content: none;
 }
 
-.button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  height: 40px;
-  width: 40px;
-  text-decoration: none;
-}
-.button:active {
-  transform: translateY(-1);
-  top: 1px;
-}
-.button img {
-  height: 20px;
-  width: 20px;
-}
-.button .normal, .button .reverse {
-  position: absolute;
-  top: 48%;
-  left: 1%;
-}
-.button .reverse {
-  left: 98%;
-  transform: scaleX(-1);
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
-.cover {
-  position: absolute;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  background-color: #000000;
-  opacity: 1;
-  text-align: center;
+input {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+@-webkit-keyframes move {
+  0% {
+    transform: scale(1) translate(10px, -30px);
+  }
+  38% {
+    transform: scale(0.8, 1) translate(80vw, 4vw) rotate(160deg);
+  }
+  40% {
+    transform: scale(0.8, 1) translate(80vw, 4vw) rotate(160deg);
+  }
+  78% {
+    transform: scale(1.3) translate(0vw, 4vw) rotate(-20deg);
+  }
+  80% {
+    transform: scale(1.3) translate(0vw, 4vw) rotate(-20deg);
+  }
+  100% {
+    transform: scale(1) translate(10px, -30px);
+  }
 }
 
 @keyframes move {
@@ -156,9 +89,25 @@ body {
     transform: scale(1) translate(10px, -30px);
   }
 }
+@-webkit-keyframes test {
+  100% {
+    transform: translatex(100vw);
+  }
+}
 @keyframes test {
   100% {
     transform: translatex(100vw);
+  }
+}
+@-webkit-keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 @keyframes gradient {
@@ -172,5 +121,124 @@ body {
     background-position: 0% 50%;
   }
 }
+body {
+  font-family: "Roboto", sans-serif;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400vw 400vw;
+  -webkit-animation: gradient 15s ease infinite;
+          animation: gradient 15s ease infinite;
+}
+body .button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  text-decoration: none;
+}
+body .button:active {
+  transform: translateY(-1);
+  top: 1px;
+}
+body .button img {
+  height: 20px;
+  width: 20px;
+}
+body .button .normal, body .button .reverse {
+  position: absolute;
+  top: 48%;
+  left: 1%;
+}
+body .button .reverse {
+  left: 98%;
+  transform: scaleX(-1);
+}
 
-/*# sourceMappingURL=style.css.map */
+.container {
+  left: 0;
+  position: absolute;
+  top: 25%;
+  width: 280px;
+  height: 400px;
+  background: #f2f2f2;
+  overflow: hidden;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 20px 8px #000000;
+}
+.container:hover {
+  transform: translateY(-1);
+}
+.container:hover .flap::before {
+  transform: translatex(-140px);
+}
+.container:hover .flap::after {
+  transform: translatex(140px);
+}
+.container .content {
+  position: absolute;
+  top: 10%;
+  text-align: justify;
+  color: black;
+  padding-left: 40px;
+  padding-right: 10px;
+  height: 400px;
+  font-size: 20px;
+}
+.container .content .title {
+  font-size: 22px;
+  color: rgb(141, 141, 247);
+  border: none;
+}
+.container .content .plot {
+  height: 140px;
+  font-size: 15px;
+  margin-bottom: 30px;
+}
+.container .content .released, .container .content .end {
+  font-size: 10px;
+  margin-top: 20px;
+}
+.container .content .director, .container .content .actors {
+  font-size: 13px;
+}
+.container .content .end {
+  margin-top: 10px;
+}
+.container .flap {
+  width: 100%;
+  height: 100%;
+}
+.container .flap::before, .container .flap::after {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 50%;
+  background: var(--img) white;
+  background-size: 280px 400px;
+  background-repeat: no-repeat;
+  transition: 1s;
+  background-position: 0vw;
+}
+.container .flap::after {
+  right: 0;
+  background-position: -140px;
+}
+
+.cover {
+  position: absolute;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background-color: #000000;
+  opacity: 1;
+  text-align: center;
+}
+.cover .exit {
+  border: none;
+  background-color: Transparent;
+  color: white;
+}/*# sourceMappingURL=style.css.map */
